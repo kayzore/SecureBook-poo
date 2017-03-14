@@ -1,0 +1,13 @@
+{
+    "name": "kayzore/secure-book-poo",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Jerome Lelievre",
+            "email": "jerome.lelievre2@gmail.com"
+        }
+    ],
+    "require": {
+        "twig/twig": "~1.0"
+    }
+}
