@@ -14,6 +14,9 @@ class Configuration
         'UserBundle',
     );
 
+    /**
+     * @return array
+     */
     public function getRegisterBundle()
     {
         return $this->registerBundle;
