@@ -1,0 +1,19 @@
+sb_homepage:
+    path: /
+    methods: [GET, POST]
+    default: { _controller: CoreBundle:Core:accueil }
+
+sb_activity_add:
+    path: /ajouter-une-activite/
+    methods: [POST]
+    default: { _controller: ActivityBundle:Core:add }
+
+sb_user_register:
+    path: /inscription/
+    methods: [GET, POST]
+    default: { _controller: UserBundle:Core:add }
+
+sb_user_connexion:
+    path: /connexion/
+    methods: [GET, POST]
+    default: { _controller: UserBundle:Core:add }
