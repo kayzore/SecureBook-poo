@@ -3,8 +3,12 @@
 namespace ControllerBundle\Model;
 
 
+use Symfony\Component\Yaml\Exception\ParseException;
+use Symfony\Component\Yaml\Yaml;
 use Twig_Environment;
 use Twig_Extension_Debug;
+use Twig_Loader_Array;
+use Twig_Loader_Chain;
 use Twig_Loader_Filesystem;
 use Twig_SimpleFilter;
 use Twig_SimpleFunction;
@@ -16,6 +20,17 @@ abstract class Controller
      */
     private $twig;
 
+    private $parameter = array();
+
+    public function __construct()
+    {
+        try {
+            $this->setParameter(Yaml::parse(file_get_contents('../app/Config/parameters.yml')));
+        } catch (ParseException $e) {
+            printf("Unable to parse the YAML string: %s", $e->getMessage());
+        }
+    }
+
     /**
      * Init Twig and call Render view function
      * @param $path
@@ -26,7 +41,10 @@ abstract class Controller
         $array = explode('::', $path);
         $bundle = $array[0];
         $path = str_replace(':', '/', $array[1]);
-        $loader = new Twig_Loader_Filesystem('../src/' . $bundle . '/Ressources/Views/');
+        $loader1 = new Twig_Loader_Filesystem('../app/Ressources/Views/');
+        $loader2 = new Twig_Loader_Filesystem('../src/' . $bundle . '/Ressources/Views/');
+
+        $loader = new Twig_Loader_Chain(array($loader1, $loader2));
         $this->twig = new Twig_Environment($loader, array(
             'cache' => false,
             'debug' => true
@@ -82,7 +100,7 @@ abstract class Controller
         });
         $this->twig->addFunction($get_route_function);
         $get_assets = new Twig_SimpleFunction('asset', function ($path) {
-            return '../web/assets/' . $path;
+            return '../' . $this->getParameter()['parameters']['project_sub_folder'] . '/web/assets/' . $path;
         });
         $this->twig->addFunction($get_assets);
     }
@@ -92,7 +110,7 @@ abstract class Controller
      */
     private function initTwigGlobals()
     {
-        $this->twig->addGlobal('dev_mode', DEV_MODE);
+        //$this->twig->addGlobal('dev_mode', DEV_MODE);
         if (isset($_SESSION['ls_utilisateur'])) {
             $this->twig->addGlobal('user', $_SESSION['ls_utilisateur']);
         }
@@ -105,4 +123,21 @@ abstract class Controller
     protected function isXmlHttpRequest() {
         return (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) ? true : false);
     }
+
+    /**
+     * @return array
+     */
+    public function getParameter()
+    {
+        return $this->parameter;
+    }
+
+    /**
+     * @param array $parameter
+     */
+    public function setParameter(array $parameter)
+    {
+        $this->parameter = $parameter;
+    }
+
 }
