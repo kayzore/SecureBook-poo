@@ -2,7 +2,6 @@
 
 namespace ControllerBundle\Model;
 
-
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
 use Twig_Environment;
@@ -18,8 +17,14 @@ abstract class Controller
      * @var Twig_Environment
      */
     private $twig;
-
+    /**
+     * @var array
+     */
     private $parameter = array();
+    /**
+     * @var array|null
+     */
+    private $session = array();
 
     public function __construct()
     {
@@ -28,6 +33,10 @@ abstract class Controller
             $this->setParameter(Yaml::parse(file_get_contents('../app/Config/parameters.yml')));
         } catch (ParseException $e) {
             printf("Unable to parse the YAML string: %s", $e->getMessage());
+        }
+        if (!isset($_SESSION[$this->getParameter()['parameters']['project_alias'] . '_utilisateur'])) {
+            $_SESSION[$this->getParameter()['parameters']['project_alias'] . '_utilisateur'] = null;
+            $this->setSession(null);
         }
     }
 
@@ -139,5 +148,22 @@ abstract class Controller
     {
         $this->parameter = $parameter;
     }
+
+    /**
+     * @return array
+     */
+    public function getSession()
+    {
+        return $this->session;
+    }
+
+    /**
+     * @param array|null $session
+     */
+    public function setSession($session)
+    {
+        $this->session = $session;
+    }
+
 
 }
