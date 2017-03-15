@@ -5,16 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <title>{% block title %}Welcome!{% endblock %}</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    <link rel="stylesheet" href="{{ asset('external/libs/font-awesome/css/font-awesome.css') }}">
-    <link rel="stylesheet" href="{{ asset('external/libs/bootstrap/dist/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('external/libs/bootstrap/dist/css/bootstrap-theme.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('external/css/font-awesome.css') }}">
+    <link rel="stylesheet" href="{{ asset('external/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('external/css/bootstrap-theme.min.css') }}">
     <link rel="stylesheet" href="{{ asset('app/css/app.css') }}">
-    {% if not is_granted('ROLE_USER') %}
-        <link rel="stylesheet" href="{{ asset('app/css/login_register.css') }}">
-    {% endif %}
+
     {% block stylesheets %}{% endblock %}
-    <script src="{{ asset('external/libs/jquery/dist/jquery.min.js') }}"></script>
-    <script src="{{ asset('external/libs/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('external/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('external/js/bootstrap.min.js') }}"></script>
     {% block javascripts %}{% endblock %}
 </head>
 <body>
