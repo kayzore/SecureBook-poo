@@ -16,7 +16,7 @@ class User
     /**
      * @var string
      */
-    private $usernameSlug;
+    private $username_slug;
     /**
      * @var string
      */
@@ -33,8 +33,12 @@ class User
      * @var array
      */
     private $friends = array();
+    /**
+     * @var \DateTime
+     */
+    private $register_date;
 
-    public function __construct($username, $email, array $roles, array $friends, $password = null, $id = null)
+    public function __construct($username, $email, array $roles, array $friends, $password = null, $id = null, $register_date = null)
     {
         if (!is_null($id)) {
             $this->setId($id);
@@ -46,6 +50,11 @@ class User
         }
         $this->setRoles($roles);
         $this->setFriends($friends);
+        if (!is_null($register_date)) {
+            $this->setRegisterDate($register_date);
+        } else {
+            $this->setRegisterDate(new \DateTime());
+        }
     }
 
     /**
@@ -91,7 +100,7 @@ class User
      */
     public function getUsernameSlug()
     {
-        return $this->usernameSlug;
+        return $this->username_slug;
     }
 
     /**
@@ -100,7 +109,7 @@ class User
      */
     public function setUsernameSlug($usernameSlug)
     {
-        $this->usernameSlug = $usernameSlug;
+        $this->username_slug = $usernameSlug;
 
         return $this;
     }
@@ -181,5 +190,19 @@ class User
         return $this;
     }
 
+    /**
+     * @return \DateTime
+     */
+    public function getRegisterDate()
+    {
+        return $this->register_date;
+    }
 
+    /**
+     * @param \DateTime $register_date
+     */
+    public function setRegisterDate($register_date)
+    {
+        $this->register_date = $register_date;
+    }
 }
