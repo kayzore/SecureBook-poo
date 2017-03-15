@@ -4,6 +4,30 @@ $files = array(
         'css',
         'vendor/external/libs/font-awesome/css/font-awesome.css'
     ),
+    'FontAwesome.otf' => array(
+        'fonts',
+        'vendor/external/libs/font-awesome/fonts/FontAwesome.otf'
+    ),
+    'fontawesome-webfont.eot' => array(
+        'fonts',
+        'vendor/external/libs/font-awesome/fonts/fontawesome-webfont.eot'
+    ),
+    'fontawesome-webfont.ttf' => array(
+        'fonts',
+        'vendor/external/libs/font-awesome/fonts/fontawesome-webfont.ttf'
+    ),
+    'fontawesome-webfont.svg' => array(
+        'fonts',
+        'vendor/external/libs/font-awesome/fonts/fontawesome-webfont.svg'
+    ),
+    'fontawesome-webfont.woff' => array(
+        'fonts',
+        'vendor/external/libs/font-awesome/fonts/fontawesome-webfont.woff'
+    ),
+    'fontawesome-webfont.woff2' => array(
+        'fonts',
+        'vendor/external/libs/font-awesome/fonts/fontawesome-webfont.woff2'
+    ),
     'jquery.min.js' => array(
         'js',
         'vendor/external/libs/jquery/dist/jquery.min.js'
@@ -19,6 +43,26 @@ $files = array(
     'bootstrap.min.js' => array(
         'js',
         'vendor/external/libs/bootstrap/dist/js/bootstrap.min.js'
+    ),
+    'glyphicons-halfings-regular.eot' => array(
+        'fonts',
+        'vendor/external/libs/bootstrap/dist/fonts/glyphicons-halflings-regular.eot'
+    ),
+    'glyphicons-halfings-regular.svg' => array(
+        'fonts',
+        'vendor/external/libs/bootstrap/dist/fonts/glyphicons-halflings-regular.svg'
+    ),
+    'glyphicons-halfings-regular.ttf' => array(
+        'fonts',
+        'vendor/external/libs/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf'
+    ),
+    'glyphicons-halfings-regular.woff' => array(
+        'fonts',
+        'vendor/external/libs/bootstrap/dist/fonts/glyphicons-halflings-regular.woff'
+    ),
+    'glyphicons-halfings-regular.woff2' => array(
+        'fonts',
+        'vendor/external/libs/bootstrap/dist/fonts/glyphicons-halflings-regular.woff2'
     ),
 );
 
