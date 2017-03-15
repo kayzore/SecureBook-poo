@@ -123,8 +123,6 @@ class Router extends Configuration
     {
         foreach ($this->getRoutes() as $route) {
             if ($route->getPath() === '/' . $_GET['url'] || $route->getPath() === '/' . $_GET['url'] . '/') {
-                var_dump('OK Route :');
-                var_dump($route);
                 $controller = '\\' . $route->getBundle() . '\Controller\\' . $route->getController();
                 $action = $route->getAction();
                 $controller = new $controller();
