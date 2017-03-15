@@ -62,8 +62,7 @@ class Router extends Configuration
     {
         $this->searchAllBundle();
         $this->searchAllRoutes();
-        var_dump('/' . $_GET['url']);
-        var_dump($this->getRoutes());
+        $this->searchRoute();
     }
 
     /**
@@ -114,6 +113,26 @@ class Router extends Configuration
             ));
         }
         $this->setRoutes($routes);
+    }
+
+    /**
+     * Search route, if not exist return 404 else instanciate controller
+     * TODO: Create 404 not found page
+     */
+    private function searchRoute()
+    {
+        foreach ($this->getRoutes() as $route) {
+            if ($route->getPath() === '/' . $_GET['url'] || $route->getPath() === '/' . $_GET['url'] . '/') {
+                var_dump('OK Route :');
+                var_dump($route);
+                $controller = '\\' . $route->getBundle() . '\Controller\\' . $route->getController();
+                $action = $route->getAction();
+                $controller = new $controller();
+                $controller->$action();
+            } else {
+                // ERROR 404 NOT FOUND
+            }
+        }
     }
 
 
