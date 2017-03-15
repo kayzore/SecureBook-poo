@@ -19,11 +19,11 @@ class Route
     /**
      * @var string
      */
-    private $bundle_name;
+    private $bundle;
     /**
      * @var string
      */
-    private $controller_name;
+    private $controller;
     /**
      * @var string
      */
@@ -38,8 +38,8 @@ class Route
         } else {
             $this->setMethods(array('GET', 'POST'));
         }
-        $this->setBundleName($route['bundle_name']);
-        $this->setControllerName($route['controller_name']);
+        $this->setBundle($route['bundle']);
+        $this->setController($route['controller']);
         $this->setAction($route['action']);
     }
 
@@ -94,33 +94,33 @@ class Route
     /**
      * @return string
      */
-    public function getBundleName()
+    public function getBundl()
     {
-        return $this->bundle_name;
+        return $this->bundle;
     }
 
     /**
-     * @param string $bundle_name
+     * @param string $bundle
      */
-    public function setBundleName($bundle_name)
+    public function setBundle($bundle)
     {
-        $this->bundle_name = $bundle_name;
+        $this->bundle = $bundle;
     }
 
     /**
      * @return string
      */
-    public function getControllerName()
+    public function getController()
     {
-        return $this->controller_name;
+        return $this->controller;
     }
 
     /**
-     * @param string $controller_name
+     * @param string $controller
      */
-    public function setControllerName($controller_name)
+    public function setController($controller)
     {
-        $this->controller_name = $controller_name;
+        $this->controller = $controller;
     }
 
     /**
