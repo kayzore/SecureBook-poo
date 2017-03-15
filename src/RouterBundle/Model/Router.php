@@ -90,15 +90,28 @@ class Router extends Configuration
      */
     private function searchAllRoutes()
     {
-        $routes = [];
+        $routes_tmp = [];
         try {
             foreach ($this->getBundleList() as $bundle) {
                 if (file_exists($bundle['path'] . '/Ressources/Config/routing.yml')){
-                    $routes = Yaml::parse(file_get_contents($bundle['path'] . '/Ressources/Config/routing.yml'));
+                    $routes_tmp = Yaml::parse(file_get_contents($bundle['path'] . '/Ressources/Config/routing.yml'));
                 }
             }
         } catch (ParseException $e) {
             printf("Unable to parse the YAML string: %s", $e->getMessage());
+        }
+        $routes = [];
+        foreach ($routes_tmp as $name => $route) {
+            $default = explode(':', $route['default']['_controller']);
+
+            $routes[] = new Route(array(
+                'name' => $name,
+                'path' => $route['path'],
+                'methods' => $route['methods'],
+                'bundle' => $default[0],
+                'controller' => $default[1] . 'Controller',
+                'action' => $default[2] . 'Action'
+            ));
         }
         $this->setRoutes($routes);
     }
