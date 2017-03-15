@@ -62,7 +62,7 @@ class Router extends Configuration
     {
         $this->searchAllBundle();
         $this->searchAllRoutes();
-
+        var_dump('/' . $_GET['url']);
         var_dump($this->getRoutes());
     }
 
