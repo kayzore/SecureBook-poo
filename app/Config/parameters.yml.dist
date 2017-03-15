@@ -1,0 +1,4 @@
+parameters:
+    project_name: ''
+    project_alias: ''
+    dev_mode: true # If true : Active the dev mode
