@@ -94,7 +94,7 @@ class Route
     /**
      * @return string
      */
-    public function getBundl()
+    public function getBundle()
     {
         return $this->bundle;
     }
