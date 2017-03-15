@@ -95,7 +95,7 @@ abstract class Controller
      */
     private function initTwigFunctions()
     {
-        $get_route_function = new Twig_SimpleFunction('getPath', function ($route_name, array $route_options = []) {
+        $get_route_function = new Twig_SimpleFunction('path', function ($route_name, array $route_options = []) {
             return '#';
         });
         $this->twig->addFunction($get_route_function);

@@ -8,6 +8,6 @@ class CoreController extends Controller
 {
     public function accueilAction()
     {
-        $this->render('CoreBundle::accueil.html.twig');
+        $this->render('CoreBundle::Home:accueil.html.twig');
     }
 }
