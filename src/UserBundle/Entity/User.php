@@ -38,7 +38,7 @@ class User
      */
     private $register_date;
 
-    public function __construct($username, $email, array $roles, array $friends, $password = null, $id = null, $register_date = null)
+    public function __construct($username, $email, array $roles, array $friends, $id = null, $register_date = null, $password = null)
     {
         if (!is_null($id)) {
             $this->setId($id);

@@ -20,11 +20,7 @@ abstract class Controller
     /**
      * @var array
      */
-    private $parameter = array();
-    /**
-     * @var array|null
-     */
-    private $session = array();
+    private static $parameter = array();
 
     public function __construct()
     {
@@ -33,10 +29,6 @@ abstract class Controller
             $this->setParameter(Yaml::parse(file_get_contents('../app/Config/parameters.yml')));
         } catch (ParseException $e) {
             printf("Unable to parse the YAML string: %s", $e->getMessage());
-        }
-        if (!isset($_SESSION[$this->getParameter()['parameters']['project_alias'] . '_utilisateur'])) {
-            $_SESSION[$this->getParameter()['parameters']['project_alias'] . '_utilisateur'] = null;
-            $this->setSession(null);
         }
     }
 
@@ -136,9 +128,9 @@ abstract class Controller
     /**
      * @return array
      */
-    public function getParameter()
+    public static function getParameter()
     {
-        return $this->parameter;
+        return self::$parameter;
     }
 
     /**
@@ -146,23 +138,7 @@ abstract class Controller
      */
     public function setParameter(array $parameter)
     {
-        $this->parameter = $parameter;
-    }
-
-    /**
-     * @return array
-     */
-    public function getSession()
-    {
-        return $this->session;
-    }
-
-    /**
-     * @param array|null $session
-     */
-    public function setSession($session)
-    {
-        $this->session = $session;
+        self::$parameter = $parameter;
     }
 
 
