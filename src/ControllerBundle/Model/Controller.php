@@ -24,6 +24,7 @@ abstract class Controller
 
     public function __construct()
     {
+        session_start();
         try {
             $this->setParameter(Yaml::parse(file_get_contents('../app/Config/parameters.yml')));
         } catch (ParseException $e) {
