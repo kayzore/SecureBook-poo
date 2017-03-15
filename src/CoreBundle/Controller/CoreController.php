@@ -2,11 +2,12 @@
 
 namespace CoreBundle\Controller;
 
+use src\ControllerBundle\Model\Controller;
 
-class CoreController
+class CoreController extends Controller
 {
     public function accueilAction()
     {
-        var_dump('ok');
+        $this->render('CoreBundle:index.html.twig');
     }
 }
