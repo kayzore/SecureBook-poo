@@ -2,3 +2,4 @@
 .idea/
 composer.lock
 app/Config/parameters.yml
+web/assets/external/
