@@ -4,12 +4,20 @@ namespace ControllerBundle\Model;
 
 
 use Twig_Environment;
+use Twig_Extension_Debug;
 use Twig_Loader_Filesystem;
+use Twig_SimpleFilter;
+use Twig_SimpleFunction;
 
 abstract class Controller
 {
     /**
-     * Render view
+     * @var Twig_Environment
+     */
+    private $twig;
+
+    /**
+     * Init Twig and call Render view function
      * @param $path
      * @param array $vars
      */
@@ -17,13 +25,77 @@ abstract class Controller
     {
         $array = explode('::', $path);
         $bundle = $array[0];
-        $folder_and_view = str_replace(':', '/', $array[1]);
+        $path = str_replace(':', '/', $array[1]);
         $loader = new Twig_Loader_Filesystem('../src/' . $bundle . '/Ressources/Views/');
-        $twig = new Twig_Environment($loader, array(
+        $this->twig = new Twig_Environment($loader, array(
             'cache' => false,
             'debug' => true
         ));
-        echo $twig->render($folder_and_view, $vars);
+        $this->initTwigExtensions();
+        $this->initTwigFilters();
+        $this->initTwigFunctions();
+        $this->initTwigGlobals();
+
+        $this->renderView($path, $vars);
+    }
+
+    /**
+     * Render View
+     * @param $path
+     * @param array $vars
+     */
+    private function renderView($path, array $vars)
+    {
+        echo $this->twig->render($path, $vars);
+    }
+
+    /**
+     * Init Twig extensions
+     */
+    private function initTwigExtensions()
+    {
+        $this->twig->addExtension(new Twig_Extension_Debug());
+    }
+
+    /**
+     * Init custom twig filters
+     */
+    private function initTwigFilters()
+    {
+        $truncate_filter = new Twig_SimpleFilter('truncate', function ($string, $limit) {
+            if (strlen($string) > $limit) {
+                return substr($string, 0, $limit - 3) . '...';
+            } else {
+                return $string;
+            }
+        });
+        $this->twig->addFilter($truncate_filter);
+    }
+
+    /**
+     * Init custom twig functions
+     */
+    private function initTwigFunctions()
+    {
+        $get_route_function = new Twig_SimpleFunction('getPath', function ($route_name, array $route_options = []) {
+            return '#';
+        });
+        $this->twig->addFunction($get_route_function);
+        $get_assets = new Twig_SimpleFunction('asset', function ($path) {
+            return '../web/assets/' . $path;
+        });
+        $this->twig->addFunction($get_assets);
+    }
+
+    /**
+     * Init custom twig globals
+     */
+    private function initTwigGlobals()
+    {
+        $this->twig->addGlobal('dev_mode', DEV_MODE);
+        if (isset($_SESSION['ls_utilisateur'])) {
+            $this->twig->addGlobal('user', $_SESSION['ls_utilisateur']);
+        }
     }
 
     /**
