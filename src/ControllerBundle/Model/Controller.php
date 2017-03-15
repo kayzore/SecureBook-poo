@@ -7,7 +7,6 @@ use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
 use Twig_Environment;
 use Twig_Extension_Debug;
-use Twig_Loader_Array;
 use Twig_Loader_Chain;
 use Twig_Loader_Filesystem;
 use Twig_SimpleFilter;
