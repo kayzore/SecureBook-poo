@@ -2,12 +2,10 @@
 
 namespace ControllerBundle\Model;
 
-
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
 use Twig_Environment;
 use Twig_Extension_Debug;
-use Twig_Loader_Array;
 use Twig_Loader_Chain;
 use Twig_Loader_Filesystem;
 use Twig_SimpleFilter;
@@ -19,11 +17,14 @@ abstract class Controller
      * @var Twig_Environment
      */
     private $twig;
-
-    private $parameter = array();
+    /**
+     * @var array
+     */
+    private static $parameter = array();
 
     public function __construct()
     {
+        session_start();
         try {
             $this->setParameter(Yaml::parse(file_get_contents('../app/Config/parameters.yml')));
         } catch (ParseException $e) {
@@ -127,9 +128,9 @@ abstract class Controller
     /**
      * @return array
      */
-    public function getParameter()
+    public static function getParameter()
     {
-        return $this->parameter;
+        return self::$parameter;
     }
 
     /**
@@ -137,7 +138,8 @@ abstract class Controller
      */
     public function setParameter(array $parameter)
     {
-        $this->parameter = $parameter;
+        self::$parameter = $parameter;
     }
+
 
 }
