@@ -8,7 +8,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ path('sb_core_homepage') }}">SecureBook</a>
+            <a class="navbar-brand" href="{{ path('sb_homepage') }}">SecureBook</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -48,7 +48,7 @@
                                             <a href="#" class="btn btn-tw"><i class="fa fa-twitter"></i> Twitter</a>
                                         </div>
                                         ou
-                                        <form class="form" role="form" method="post" action="{{ path('login_check') }}"
+                                        <form class="form" role="form" method="post" action="{{ path('sb_activity_add') }}"
                                               accept-charset="UTF-8" id="login-nav">
                                             <div class="form-group">
                                                 <label class="sr-only" for="username">Username</label>
@@ -70,7 +70,7 @@
                                                 <button type="submit" class="btn btn-primary btn-block">Connexion</button>
                                             </div>
                                             <div class="bottom text-center">
-                                                Nouveau ? <a href="{{ path('user_registration') }}"><b>Rejoignez-nous</b></a>
+                                                Nouveau ? <a href="{{ path('sb_user_register') }}"><b>Rejoignez-nous</b></a>
                                             </div>
                                         </form>
                                     </div>
@@ -78,7 +78,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li><a href="{{ path('logout') }}">Déconnexion</a></li>
+                    <li><a href="{{ path('sb_user_deconnexion') }}">Déconnexion</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
