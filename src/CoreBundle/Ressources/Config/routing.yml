@@ -15,5 +15,10 @@ sb_user_register:
 
 sb_user_connexion:
     path: /connexion/
-    methods: [GET, POST]
-    default: { _controller: UserBundle:Core:add }
+    methods: [POST]
+    default: { _controller: UserBundle:Core:connexion }
+
+sb_user_deconnexion:
+    path: /deconnexion/
+    methods: [GET]
+    default: { _controller: UserBundle:Core:deconnexion }
