@@ -24,14 +24,14 @@ class Users
             $this->setSession(null);
         } else {
             $session = $this->getSession();
-            self::setUser(new User(
-                $session['username'],
-                $session['email'],
-                $session['roles'],
-                $session['friends'],
-                $session['id'],
-                $session['register_date']
-            ));
+            self::setUser(new User(array(
+                'id' => $session['id'],
+                'username' =>$session['username'],
+                'email' => $session['email'],
+                'roles' => $session['roles'],
+                'friends' => $session['friends'],
+                'register_date' => $session['register_date']
+            )));
         }
     }
 
@@ -74,5 +74,17 @@ class Users
     public function setUser($user)
     {
         $this->user = $user;
+    }
+
+    public function validateConnexion(User $user)
+    {
+        $errors = [];
+        if (strlen($user->getEmail()) == 0) {
+            $errors['_email'] = 'Veuillez renseigner le champ.';
+        }
+        if (strlen($user->getPassword()) == 0) {
+            $errors['_password'] = 'Veuillez renseigner le champ.';
+        }
+        return $errors;
     }
 }
