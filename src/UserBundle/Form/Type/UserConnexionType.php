@@ -1,12 +1,13 @@
 <?php
 
-namespace UserBundle\Form;
+namespace UserBundle\Form\Type;
+
 
 use FormBundle\Model\AbstractForm;
 use FormBundle\Model\FormBuilder;
 use UserBundle\Entity\User;
 
-class UserConnexionForm extends AbstractForm
+class UserConnexionType extends AbstractForm
 {
     public function buildForm(FormBuilder $builder)
     {
@@ -37,6 +38,7 @@ class UserConnexionForm extends AbstractForm
 
         ;
         $this->setForm($builder->getForm());
+        return $this;
     }
 
     public function configureOptions(AbstractForm $abstractForm)

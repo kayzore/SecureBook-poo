@@ -2,6 +2,7 @@
 
 namespace ControllerBundle\Model;
 
+use FormBundle\Model\FormBuilder;
 use RouterBundle\Model\Router;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
@@ -175,5 +176,9 @@ abstract class Controller
         $this->form_session = $form_session;
     }
 
+    public function buildForm($formType)
+    {
+        return $formType->buildForm(new FormBuilder());
+    }
 
 }
