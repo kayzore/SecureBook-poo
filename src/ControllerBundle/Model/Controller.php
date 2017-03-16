@@ -104,6 +104,10 @@ abstract class Controller
             return '../' . $this->getParameter()['parameters']['project_sub_folder'] . '/web/assets/' . $path;
         });
         $this->twig->addFunction($get_assets);
+        $is_connect = new Twig_SimpleFunction('isConnect', function () {
+            return (!is_null($_SESSION[Controller::getParameter()['parameters']['project_alias'] . '_utilisateur']) ? true : false);
+        });
+        $this->twig->addFunction($is_connect);
     }
 
     /**
