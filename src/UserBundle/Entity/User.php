@@ -38,22 +38,34 @@ class User
      */
     private $register_date;
 
-    public function __construct($username, $email, array $roles, array $friends, $id = null, $register_date = null, $password = null)
+    public function __construct(array $user = null)
     {
-        if (!is_null($id)) {
-            $this->setId($id);
-        }
-        $this->setUsername($username);
-        $this->setEmail($email);
-        if (!is_null($password)) {
-            $this->setPassword($password);
-        }
-        $this->setRoles($roles);
-        $this->setFriends($friends);
-        if (!is_null($register_date)) {
-            $this->setRegisterDate($register_date);
-        } else {
-            $this->setRegisterDate(new \DateTime());
+        if (!is_null($user)) {
+            if (isset($user['id'])) {
+                $this->setId($user['id']);
+            }
+            if (isset($user['username'])) {
+                $this->setUsername($user['username']);
+            }
+            if (isset($user['email'])) {
+                $this->setEmail($user['email']);
+            }
+            if (isset($user['password'])) {
+                $this->setPassword($user['password']);
+            }
+            if (isset($user['roles'])) {
+                $this->setRoles($user['roles']);
+            } else {
+                $this->setRoles(array('ROLE_USER'));
+            }
+            if (isset($user['friends'])) {
+                $this->setFriends($user['friends']);
+            } else {
+                $this->setFriends(array());
+            }
+            if (isset($user['register_date'])) {
+                $this->setRegisterDate($user['register_date']);
+            }
         }
     }
 
