@@ -122,18 +122,38 @@ class Router extends Configuration
     /**
      * Search route, if not exist return 404 else instanciate controller
      * TODO: Create 404 not found page
+     * TODO: Create Access denied
      */
     private function searchRoute()
     {
+        $match_route = array(false, '');
         foreach ($this->getRoutes() as $route) {
             if ($route->getPath() === '/' . $_GET['url'] || $route->getPath() === '/' . $_GET['url'] . '/') {
-                $controller = '\\' . $route->getBundle() . '\Controller\\' . $route->getController();
-                $action = $route->getAction();
+                $match_route[0] = true;
+                $match_route[1] = $route;
+                break;
+            }
+        }
+        if ($match_route[0]) {
+            $controller = '\\' . $match_route[1]->getBundle() . '\Controller\\' . $match_route[1]->getController();
+            $request_method = false;
+            foreach ($match_route[1]->getMethods() as $method) {
+                if ($method === $_SERVER['REQUEST_METHOD']) {
+                    $request_method = true;
+                    break;
+                }
+            }
+            if ($request_method) {
+                $action = $match_route[1]->getAction();
                 $controller = new $controller();
                 $controller->$action();
             } else {
-                // ERROR 404 NOT FOUND
+                // ERROR Access via this request method not authorized
+                echo 'ERROR Access via this request method not authorized';
             }
+        } else {
+            // ERROR 404 NOT FOUND
+            echo 'ERROR 404 NOT FOUND';
         }
     }
 
