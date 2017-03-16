@@ -1,4 +1,5 @@
 parameters:
     project_name: ''
     project_alias: ''
+    project_sub_folder: ''
     dev_mode: true # If true : Active the dev mode
