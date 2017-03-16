@@ -5,9 +5,10 @@ namespace UserBundle\Form\Type;
 
 use FormBundle\Model\AbstractForm;
 use FormBundle\Model\FormBuilder;
+use FormBundle\Model\FormTypeInterface;
 use UserBundle\Entity\User;
 
-class UserConnexionType extends AbstractForm
+class UserConnexionType extends AbstractForm implements FormTypeInterface
 {
     public function buildForm(FormBuilder $builder)
     {
@@ -46,7 +47,7 @@ class UserConnexionType extends AbstractForm
         $abstractForm->setEntity(User::class);
     }
 
-    private function getName()
+    public function getName()
     {
         return 'user';
     }
