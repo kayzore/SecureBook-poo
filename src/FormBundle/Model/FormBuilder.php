@@ -23,8 +23,14 @@ class FormBuilder
 
     public function add($entity_field, $type_field, array $options)
     {
+        $label = '';
+        if (isset($options['label'])) {
+            $id = $options['attr']['id'];
+            $label = '<label ' . (isset($options['label']['class']) ? 'class="' . $options['label']['class'] . '"' : '') .
+                ' for="' . $this->getEntityName() . '_' . $id . '">' . $options['label']['text'] . '</label>';
+        }
         $attr = $this->checkAttr($entity_field, $options);
-        $this->setForm($entity_field, '<input type="' . $type_field .'" name="_' . $entity_field . '"' . $attr .'>');
+        $this->setForm($entity_field, $label . '<input type="' . $type_field .'" name="_' . $entity_field . '"' . $attr .'>');
 
         return $this;
     }

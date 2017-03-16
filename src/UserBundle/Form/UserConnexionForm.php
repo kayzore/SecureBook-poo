@@ -13,6 +13,10 @@ class UserConnexionForm extends AbstractForm
         $builder
             ->setEntityName($this->getName())
             ->add('email', 'email', array(
+                'label' => array(
+                    'text'  => 'Email',
+                    'class' => 'sr-only'
+                ),
                 'attr' => array(
                     'class'         => 'form-control',
                     'id'            => 'email',
@@ -20,6 +24,10 @@ class UserConnexionForm extends AbstractForm
                 )
             ))
             ->add('password', 'password', array(
+                'label' => array(
+                    'text'  => 'Mot de passe',
+                    'class' => 'sr-only'
+                ),
                 'attr' => array(
                     'class'         => 'form-control',
                     'id'            => 'password',

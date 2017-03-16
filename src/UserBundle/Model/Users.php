@@ -75,16 +75,4 @@ class Users
     {
         $this->user = $user;
     }
-
-    public function validateConnexion(User $user)
-    {
-        $errors = [];
-        if (strlen($user->getEmail()) == 0) {
-            $errors['_email'] = 'Veuillez renseigner le champ.';
-        }
-        if (strlen($user->getPassword()) == 0) {
-            $errors['_password'] = 'Veuillez renseigner le champ.';
-        }
-        return $errors;
-    }
 }
