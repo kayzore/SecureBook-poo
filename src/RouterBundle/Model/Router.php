@@ -20,6 +20,7 @@ class Router extends Configuration
 
     public function __construct()
     {
+        session_start();
         $this->start();
     }
 
@@ -112,6 +113,9 @@ class Router extends Configuration
                 'action' => $default[2] . 'Action'
             ));
         }
+        $parameters = Yaml::parse(file_get_contents('../app/Config/parameters.yml'));
+        $_SESSION[$parameters['parameters']['project_alias'] . '_routes'] = $routes;
+        //var_dump($_SESSION[$parameters['parameters']['project_alias'] . '_routes']);
         $this->setRoutes($routes);
     }
 
@@ -133,5 +137,21 @@ class Router extends Configuration
         }
     }
 
-
+    /**
+     *
+     * @param $route_name
+     * @return bool|string
+     */
+    public static function getRoute($route_name)
+    {
+        $search_path = false;
+        $parameters = Yaml::parse(file_get_contents('../app/Config/parameters.yml'));
+        foreach ($_SESSION[$parameters['parameters']['project_alias'] . '_routes'] as $route) {
+            if ($route->getName() === $route_name) {
+                $search_path = $route->getPath();
+                break;
+            }
+        }
+        return '/' . $parameters['parameters']['project_sub_folder'] .  $search_path;
+    }
 }

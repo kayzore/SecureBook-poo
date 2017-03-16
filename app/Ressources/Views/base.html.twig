@@ -9,7 +9,9 @@
     <link rel="stylesheet" href="{{ asset('external/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('external/css/bootstrap-theme.min.css') }}">
     <link rel="stylesheet" href="{{ asset('app/css/app.css') }}">
-    <link rel="stylesheet" href="{{ asset('app/css/login_register.css') }}">
+    {% if not isConnect() %}
+        <link rel="stylesheet" href="{{ asset('app/css/login_register.css') }}">
+    {% endif %}
     {% block stylesheets %}{% endblock %}
     <script src="{{ asset('external/js/jquery.min.js') }}"></script>
     <script src="{{ asset('external/js/bootstrap.min.js') }}"></script>

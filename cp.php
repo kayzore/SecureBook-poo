@@ -64,6 +64,10 @@ $files = array(
         'fonts',
         'vendor/external/libs/bootstrap/dist/fonts/glyphicons-halflings-regular.woff2'
     ),
+    'jquery.autogrowtextarea.min.js' => array(
+        'js',
+        'vendor/external/libs/autogrow-textarea/jquery.autogrowtextarea.min.js'
+    ),
 );
 
 if (!is_dir('web/assets/')) {

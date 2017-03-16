@@ -10,7 +10,10 @@ class CoreController extends Controller
     public function accueilAction()
     {
         $users = new Users();
-        var_dump($users->getUser());
-        $this->render('CoreBundle::Home:accueil.html.twig');
+        if ($users->getIfUserIsConnect()) {
+            $this->render('CoreBundle::Home:membre_accueil.html.twig');
+        } else {
+            $this->render('CoreBundle::Home:public_accueil.html.twig');
+        }
     }
 }

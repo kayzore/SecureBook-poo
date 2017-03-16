@@ -2,6 +2,7 @@
 
 namespace ControllerBundle\Model;
 
+use RouterBundle\Model\Router;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
 use Twig_Environment;
@@ -24,7 +25,6 @@ abstract class Controller
 
     public function __construct()
     {
-        session_start();
         try {
             $this->setParameter(Yaml::parse(file_get_contents('../app/Config/parameters.yml')));
         } catch (ParseException $e) {
@@ -97,13 +97,17 @@ abstract class Controller
     private function initTwigFunctions()
     {
         $get_route_function = new Twig_SimpleFunction('path', function ($route_name, array $route_options = []) {
-            return '#';
+            return Router::getRoute($route_name);
         });
         $this->twig->addFunction($get_route_function);
         $get_assets = new Twig_SimpleFunction('asset', function ($path) {
-            return '../' . $this->getParameter()['parameters']['project_sub_folder'] . '/web/assets/' . $path;
+            return '../../' . $this->getParameter()['parameters']['project_sub_folder'] . '/web/assets/' . $path;
         });
         $this->twig->addFunction($get_assets);
+        $is_connect = new Twig_SimpleFunction('isConnect', function () {
+            return (!is_null($_SESSION[Controller::getParameter()['parameters']['project_alias'] . '_utilisateur']) ? true : false);
+        });
+        $this->twig->addFunction($is_connect);
     }
 
     /**
