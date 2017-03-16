@@ -23,12 +23,20 @@ abstract class Controller
      */
     private static $parameter = array();
 
+    private $form_session = null;
+
     public function __construct()
     {
         try {
             $this->setParameter(Yaml::parse(file_get_contents('../app/Config/parameters.yml')));
         } catch (ParseException $e) {
             printf("Unable to parse the YAML string: %s", $e->getMessage());
+        }
+        $parameters = self::getParameter();
+        if (isset($_SESSION[$parameters['parameters']['project_alias'] . '_form']) && !is_null($_SESSION[$parameters['parameters']['project_alias'] . '_form'])) {
+            $this->setFormSession($_SESSION[$parameters['parameters']['project_alias'] . '_form']);
+        } else {
+            $this->setFormSession(null);
         }
     }
 
@@ -108,6 +116,10 @@ abstract class Controller
             return (!is_null($_SESSION[Controller::getParameter()['parameters']['project_alias'] . '_utilisateur']) ? true : false);
         });
         $this->twig->addFunction($is_connect);
+        $form_widget = new Twig_SimpleFunction('form_widget', function ($field) {
+            echo nl2br($field);
+        });
+        $this->twig->addFunction($form_widget);
     }
 
     /**
@@ -143,6 +155,24 @@ abstract class Controller
     public function setParameter(array $parameter)
     {
         self::$parameter = $parameter;
+    }
+
+    /**
+     * @return null
+     */
+    public function getFormSession()
+    {
+        return $this->form_session;
+    }
+
+    /**
+     * @param array|null $form_session
+     */
+    public function setFormSession($form_session)
+    {
+        $parameters = self::getParameter();
+        $_SESSION[$parameters['parameters']['project_alias'] . '_form'] = $form_session;
+        $this->form_session = $form_session;
     }
 
 
